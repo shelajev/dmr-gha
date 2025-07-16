@@ -13,6 +13,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Install DMR, pull a model, and Run a quick script
       run: | 
+        sudo apt update
         sudo apt install docker-model-plugin
         docker model pull docker model pull unsloth/qwen3-gguf:0.6B-UD-Q4_K_XL
         curl http://model-runner.docker.internal/engines/llama.cpp/v1/chat/completions \
