@@ -1,0 +1,32 @@
+name: Docker Model Runner in GHA
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install DMR, pull a model, and Run a quick script
+      run: | 
+        sudo apt install docker-model-plugin
+        docker model pull docker model pull unsloth/qwen3-gguf:0.6B-UD-Q4_K_XL
+        curl http://model-runner.docker.internal/engines/llama.cpp/v1/chat/completions \
+          -H "Content-Type: application/json" \
+          -d '{
+                "model": "ai/smollm2",
+                "messages": [
+                  {
+                      "role": "system",
+                      "content": "You are a helpful assistant."
+                  },
+                  {
+                      "role": "user",
+                      "content": "Please write 500 words about the fall of Rome."
+                  }
+                ]
+             }'
