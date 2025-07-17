@@ -15,8 +15,7 @@ jobs:
       run: | 
         curl -fsSL https://get.docker.com | sudo sh
         docker model pull unsloth/qwen3-gguf:0.6B-UD-Q4_K_XL
-        curl --unix-socket $HOME/.docker/run/docker.sock \
-            localhost/exp/vDD4.40/engines/llama.cpp/v1/chat/completions \
+        curl -s http://localhost:12434/engines/llama.cpp/v1/chat/completions \
             -H "Content-Type: application/json" \
             -d '{
                 "model": "unsloth/qwen3-gguf:0.6B-UD-Q4_K_XL",
