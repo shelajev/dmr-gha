@@ -13,14 +13,14 @@ jobs:
     - uses: actions/checkout@v4
     - name: Install DMR, pull a model, and Run a quick script
       run: | 
-        apt-get -qq update >/dev/null
-        DEBIAN_FRONTEND=noninteractive apt-get -y -qq install ca-certificates curl >/dev/null
-        install -m 0755 -d /etc/apt/keyrings
-        curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" -o /etc/apt/keyrings/docker.asc
-        chmod a+r /etc/apt/keyrings/docker.asc
-        echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable" > /etc/apt/sources.list.d/docker.list
-        apt-get -qq update >/dev/null
-        DEBIAN_FRONTEND=noninteractive apt-get -y -qq install docker-model-plugin
+        sh -c apt-get -qq update >/dev/null
+        sh -c DEBIAN_FRONTEND=noninteractive apt-get -y -qq install ca-certificates curl >/dev/null
+        sh -c install -m 0755 -d /etc/apt/keyrings
+        sh -c curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" -o /etc/apt/keyrings/docker.asc
+        sh -c chmod a+r /etc/apt/keyrings/docker.asc
+        sh -c echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable" > /etc/apt/sources.list.d/docker.list
+        sh -c apt-get -qq update >/dev/null
+        sh -c DEBIAN_FRONTEND=noninteractive apt-get -y -qq install docker-model-plugin
         docker model pull unsloth/qwen3-gguf:0.6B-UD-Q4_K_XL
         curl --unix-socket $HOME/.docker/run/docker.sock \
             localhost/exp/vDD4.40/engines/llama.cpp/v1/chat/completions \
